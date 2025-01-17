@@ -3,122 +3,189 @@
 <head>
   <title>Ad Revenue Calculator</title>
   <style>
-    /* General styles */
+    /* Styling for the overall page layout, including body and calculator components */
     body {
-      font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: #f9f9f9;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif; /* Sets font style */
+      max-width: 1200px; /* Limits the maximum width of the page */
+      margin: 50px auto; /* Centers the content vertically and horizontally */
+      padding: 20px; /* Adds padding around the content */
+      background-color: #f9f9f9; /* Light grey background for better readability */
+      border: 1px solid #ddd; /* Border around the page */
+      border-radius: 10px; /* Rounded corners for the page */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
+      display: flex; /* Uses flexbox layout for alignment */
+      gap: 20px; /* Space between the two calculators */
     }
 
-    h1 {
-      text-align: center;
-      color: #333;
+    .calculator {
+      flex: 1; /* Ensures each calculator takes up equal space */
+      padding: 20px; /* Padding inside each calculator */
+      background-color: #fff; /* White background for the calculator */
+      border: 1px solid #ddd; /* Border around each calculator */
+      border-radius: 10px; /* Rounded corners for calculators */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     }
 
-    .form-container {
-      padding: 20px; /* Add padding to the form container */
-    }
-
+    /* Styling for form labels, input fields, and buttons */
     label {
-      font-weight: bold;
-      margin-top: 15px;
-      color: #555;
+      font-weight: bold; /* Makes labels bold */
+      margin-top: 15px; /* Adds spacing above labels */
+      color: #555; /* Dark grey for better readability */
     }
 
     input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0; /* Add vertical spacing between fields */
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 14px;
-      box-sizing: border-box;
+      width: 100%; /* Full width for input fields */
+      padding: 10px; /* Inner spacing for input fields */
+      margin: 10px 0; /* Vertical spacing between input fields */
+      border: 1px solid #ccc; /* Light border for inputs */
+      border-radius: 5px; /* Rounded corners for input fields */
+      font-size: 14px; /* Font size for input text */
+      box-sizing: border-box; /* Includes padding in width calculation */
     }
 
     button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 20px;
-      background-color: #DD3E7D;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      width: 100%; /* Full-width buttons */
+      padding: 12px; /* Inner spacing for buttons */
+      margin-top: 20px; /* Space above buttons */
+      background-color: #DD3E7D; /* Pink background color */
+      color: white; /* White text for contrast */
+      font-size: 16px; /* Larger font size for buttons */
+      font-weight: bold; /* Bold text for buttons */
+      border: none; /* No border for buttons */
+      border-radius: 25px; /* Rounded corners for buttons */
+      cursor: pointer; /* Pointer cursor on hover */
+      transition: background-color 0.3s ease; /* Smooth transition for hover effect */
     }
 
     button:hover {
-      background-color: #c22f6b;
+      background-color: #c22f6b; /* Darker pink on hover */
     }
 
     .output {
-      margin: 20px 0;
-      padding: 15px;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      font-weight: bold;
-      font-size: 16px;
-      color: #333;
+      margin: 20px 0; /* Spacing above and below output sections */
+      padding: 15px; /* Padding inside the output box */
+      background-color: #f9f9f9; /* Light grey background for outputs */
+      border: 1px solid #ddd; /* Border for output boxes */
+      border-radius: 10px; /* Rounded corners for outputs */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      font-weight: bold; /* Bold text for emphasis */
+      font-size: 16px; /* Larger font size for readability */
+      color: #333; /* Dark text color for outputs */
     }
 
     .output p {
-      margin: 5px 0;
+      margin: 5px 0; /* Minimal spacing between paragraphs in output */
     }
   </style>
 </head>
 <body>
-  <h1>Ad Revenue Calculator</h1>
-  
-  <div class="form-container">
+  <!-- First calculator for estimating ad revenue based on input data -->
+  <div class="calculator">
+    <h2>Ad Revenue Calculator</h2>
     <label for="adSpend">Ad Spend (£):</label>
-    <input type="number" id="adSpend" placeholder="Enter ad spend">
+    <!-- Input for ad spend -->
+    <input type="number" id="adSpend" placeholder="Enter ad spend" step="0.01">
     
     <label for="clicks">Clicks:</label>
-    <input type="number" id="clicks" placeholder="Enter total clicks">
+    <!-- Input for total clicks -->
+    <input type="number" id="clicks" placeholder="Enter total clicks" step="0.01">
     
     <label for="aov">Average Order Value (£):</label>
-    <input type="number" id="aov" placeholder="Enter average order value">
+    <!-- Input for average order value -->
+    <input type="number" id="aov" placeholder="Enter average order value" step="0.01">
     
     <label for="conversionRate">Conversion Rate (%):</label>
-    <input type="number" id="conversionRate" placeholder="Enter conversion rate">
+    <!-- Input for conversion rate -->
+    <input type="number" id="conversionRate" placeholder="Enter conversion rate" step="0.01">
     
+    <!-- Button to trigger revenue calculation -->
     <button onclick="calculate()">Calculate</button>
+    <!-- Output area for revenue calculation results -->
+    <div class="output" id="output"></div>
   </div>
 
-  <div class="output" id="output"></div>
+  <!-- Second calculator for determining ad spend to meet target revenue -->
+  <div class="calculator">
+    <h2>Ad Spend Calculator</h2>
+    <label for="targetRevenue">Target Revenue (£):</label>
+    <!-- Input for target revenue -->
+    <input type="number" id="targetRevenue" placeholder="Enter target revenue" step="0.01">
+    
+    <label for="aovTarget">Average Order Value (£):</label>
+    <!-- Input for average order value -->
+    <input type="number" id="aovTarget" placeholder="Enter average order value" step="0.01">
+    
+    <label for="conversionRateTarget">Conversion Rate (%):</label>
+    <!-- Input for conversion rate -->
+    <input type="number" id="conversionRateTarget" placeholder="Enter conversion rate" step="0.01">
+    
+    <label for="cpcTarget">Cost Per Click (£):</label>
+    <!-- Input for cost per click -->
+    <input type="number" id="cpcTarget" placeholder="Enter cost per click" step="0.01">
+    
+    <!-- Button to trigger ad spend calculation -->
+    <button onclick="calculateAdSpend()">Calculate Ad Spend</button>
+    <!-- Output area for ad spend calculation results -->
+    <div class="output" id="outputAdSpend"></div>
+  </div>
 
   <script>
+    // Function to calculate CPC, purchases, revenue, and ROAS
     function calculate() {
+      // Retrieve and parse input values
       const adSpend = parseFloat(document.getElementById('adSpend').value);
-      const clicks = parseInt(document.getElementById('clicks').value);
+      const clicks = parseFloat(document.getElementById('clicks').value);
       const aov = parseFloat(document.getElementById('aov').value);
       const conversionRate = parseFloat(document.getElementById('conversionRate').value) / 100;
 
+      // Validate input fields
       if (!adSpend || !clicks || !aov || !conversionRate) {
         document.getElementById('output').innerHTML = "<p>Please fill in all fields.</p>";
         return;
       }
 
-      const cpc = (adSpend / clicks).toFixed(2);
-      const purchases = Math.round(clicks * conversionRate);
-      const revenue = (purchases * aov).toFixed(2);
-      const ROAS = (revenue / adSpend).toFixed(2);
+      // Perform calculations
+      const cpc = (adSpend / clicks).toFixed(2); // Cost per click
+      const purchases = Math.round(clicks * conversionRate); // Estimated purchases
+      const revenue = (purchases * aov).toFixed(2); // Estimated revenue
+      const ROAS = (revenue / adSpend).toFixed(2); // Return on ad spend
 
-      // Use `toLocaleString()` to format numbers with commas
+      // Display results in the output section
       document.getElementById('output').innerHTML = `
         <p>Estimated CPC: <strong>£${cpc}</strong></p>
         <p>Estimated number of Purchases: <strong>${purchases.toLocaleString()}</strong></p>
         <p>Total estimated Revenue: <strong>£${parseFloat(revenue).toLocaleString()}</strong></p>
         <p>Estimated ROAS: <strong>${ROAS}</strong></p>
+      `;
+    }
+
+    // Function to calculate required ad spend to reach target revenue
+    function calculateAdSpend() {
+      // Retrieve and parse input values
+      const targetRevenue = parseFloat(document.getElementById('targetRevenue').value);
+      const aov = parseFloat(document.getElementById('aovTarget').value);
+      const conversionRate = parseFloat(document.getElementById('conversionRateTarget').value) / 100;
+      const cpc = parseFloat(document.getElementById('cpcTarget').value);
+
+      // Validate input fields
+      if (!targetRevenue || !aov || !conversionRate || !cpc) {
+        document.getElementById('outputAdSpend').innerHTML = "<p>Please fill in all fields.</p>";
+        return;
+      }
+
+      // Performing the calculations, will show the purchases needed, clickes needed with what ad spend and a estimated ROAS
+      
+      const requiredPurchases = Math.ceil(targetRevenue / aov); // Purchases needed
+      const requiredClicks = Math.ceil(requiredPurchases / conversionRate); // Clicks needed
+      const adSpend = (requiredClicks * cpc).toFixed(2); // Ad spend required
+      const estimatedROAS = (targetRevenue / adSpend).toFixed(2); // Estimated ROAS
+
+      // Display results in the output section
+      document.getElementById('outputAdSpend').innerHTML = `
+        <p>Required Purchases: <strong>${requiredPurchases.toLocaleString()}</strong></p>
+        <p>Required Clicks: <strong>${requiredClicks.toLocaleString()}</strong></p>
+        <p>Estimated Ad Spend: <strong>£${parseFloat(adSpend).toLocaleString()}</strong></p>
+        <p>Estimated ROAS: <strong>${estimatedROAS}</strong></p>
       `;
     }
   </script>
