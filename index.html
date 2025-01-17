@@ -3,29 +3,97 @@
 <head>
   <title>Ad Revenue Calculator</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; }
-    label, input { display: block; margin: 10px 0; }
-    button { padding: 10px; background-color: #DD3E7D; color: white; border: 2px; cursor: pointer; border-radius: 15px; }
-    .output { margin: 20px 0; font-weight: bold; }
+    /* General styles */
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-container {
+      padding: 20px; /* Add padding to the form container */
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 15px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0; /* Add vertical spacing between fields */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background-color: #DD3E7D;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #c22f6b;
+    }
+
+    .output {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-weight: bold;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .output p {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
   <h1>Ad Revenue Calculator</h1>
   
-  <label for="adSpend">Ad Spend (£):</label>
-  <input type="number" id="adSpend" placeholder="Enter ad spend">
-  
-  <label for="clicks">Clicks:</label>
-  <input type="number" id="clicks" placeholder="Enter total clicks">
-  
-  <label for="aov">Average Order Value (£):</label>
-  <input type="number" id="aov" placeholder="Enter average order value">
-  
-  <label for="conversionRate">Conversion Rate (%):</label>
-  <input type="number" id="conversionRate" placeholder="Enter conversion rate">
-  
-  <button onclick="calculate()">Calculate</button>
-  
+  <div class="form-container">
+    <label for="adSpend">Ad Spend (£):</label>
+    <input type="number" id="adSpend" placeholder="Enter ad spend">
+    
+    <label for="clicks">Clicks:</label>
+    <input type="number" id="clicks" placeholder="Enter total clicks">
+    
+    <label for="aov">Average Order Value (£):</label>
+    <input type="number" id="aov" placeholder="Enter average order value">
+    
+    <label for="conversionRate">Conversion Rate (%):</label>
+    <input type="number" id="conversionRate" placeholder="Enter conversion rate">
+    
+    <button onclick="calculate()">Calculate</button>
+  </div>
+
   <div class="output" id="output"></div>
 
   <script>
@@ -36,18 +104,21 @@
       const conversionRate = parseFloat(document.getElementById('conversionRate').value) / 100;
 
       if (!adSpend || !clicks || !aov || !conversionRate) {
-        document.getElementById('output').innerText = "Please fill in all fields.";
+        document.getElementById('output').innerHTML = "<p>Please fill in all fields.</p>";
         return;
       }
 
       const cpc = (adSpend / clicks).toFixed(2);
-      const purchases = (clicks * conversionRate).toFixed(0);
+      const purchases = Math.round(clicks * conversionRate);
       const revenue = (purchases * aov).toFixed(2);
+      const ROAS = (revenue / adSpend).toFixed(2);
 
+      // Use `toLocaleString()` to format numbers with commas
       document.getElementById('output').innerHTML = `
-        Estimated CPC: £${cpc}<br>
-        Estimated number of Purchases: ${purchases}<br>
-        Total estimated Revenue: £${revenue}
+        <p>Estimated CPC: <strong>£${cpc}</strong></p>
+        <p>Estimated number of Purchases: <strong>${purchases.toLocaleString()}</strong></p>
+        <p>Total estimated Revenue: <strong>£${parseFloat(revenue).toLocaleString()}</strong></p>
+        <p>Estimated ROAS: <strong>${ROAS}</strong></p>
       `;
     }
   </script>
